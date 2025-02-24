@@ -13,6 +13,9 @@ const server = require('../server');
 
 chai.use(chaiHttp);
 
+const deleteBookId = "67bc1e1a3b772b7a10cbbed7"; // change ids before testing
+const updateBookId = "67bc1d1ee72ba5e5d46e3e72";
+
 suite('Functional Tests', function() {
 
   /*
@@ -115,11 +118,10 @@ suite('Functional Tests', function() {
 
 
     suite('POST /api/books/[id] => add comment/expect book object with id', function(){
-      const bookId = "67bc1ad17b30435e805fe124";
       test('Test POST /api/books/[id] with comment', function(done){
         chai.request(server)
-        .post(`/api/books/${bookId}`)
-        .send({id:bookId,comment:"hello"})
+        .post(`/api/books/${updateBookId}`)
+        .send({id:updateBookId,comment:"hello"})
         .end((err,res) => {
           assert.equal(res.status, 200);
           //console.log(res.body)
@@ -131,8 +133,8 @@ suite('Functional Tests', function() {
 
       test('Test POST /api/books/[id] without comment field', function(done){
         chai.request(server)
-        .post(`/api/books/${bookId}`)
-        .send({id:bookId,comment:""})
+        .post(`/api/books/${updateBookId}`)
+        .send({id:updateBookId,comment:""})
         .end((err,res) => {
           assert.equal(res.status, 200);
           assert.equal(res.text, "missing required field comment")
@@ -154,12 +156,11 @@ suite('Functional Tests', function() {
     });
 
     suite('DELETE /api/books/[id] => delete book object id', function() {
-      const bookId = "67bc1b3932615112f59b76be";
 
       test('Test DELETE /api/books/[id] with valid id in db', function(done){
         chai.request(server)
-        .delete(`/api/books/${bookId}`)
-        .send({id:bookId})
+        .delete(`/api/books/${deleteBookId}`)
+        .send({id:deleteBookId})
         .end((err,res) => {
           assert.equal(res.status, 200);
           console.log(res.text)
