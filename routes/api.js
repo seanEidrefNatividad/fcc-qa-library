@@ -107,7 +107,7 @@ module.exports = function (app) {
         } else {
           res.send("delete successful")
         }
-        console.log("book: "+ book)
+        //console.log("book: "+ book)
       } catch (error) {
         res.send("no book exists")
       }
